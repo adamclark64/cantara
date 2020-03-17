@@ -39,28 +39,34 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var exec_1 = __importDefault(require("../../util/exec"));
 var cantara_config_1 = require("../../cantara-config");
-function publishPackage() {
+var node_1 = __importDefault(require("./node"));
+var package_1 = __importDefault(require("./package"));
+function publishActiveApp() {
     return __awaiter(this, void 0, void 0, function () {
-        var packageToPublish;
+        var activeApp;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    packageToPublish = cantara_config_1.getActiveApp();
-                    if (packageToPublish.type !== 'js-package' &&
-                        packageToPublish.type !== 'react-component') {
-                        throw new Error('Only packages can be published!');
-                    }
-                    return [4 /*yield*/, exec_1.default('np --no-tests', {
-                            redirectIo: true,
-                            workingDirectory: packageToPublish.paths.root,
-                        })];
+                    activeApp = cantara_config_1.getActiveApp();
+                    if (!(activeApp.type === 'node')) return [3 /*break*/, 2];
+                    return [4 /*yield*/, node_1.default(activeApp)];
                 case 1:
                     _a.sent();
-                    return [2 /*return*/];
+                    return [3 /*break*/, 5];
+                case 2:
+                    if (!(activeApp.type === 'js-package' ||
+                        activeApp.type === 'react-component')) return [3 /*break*/, 4];
+                    return [4 /*yield*/, package_1.default(activeApp)];
+                case 3:
+                    _a.sent();
+                    return [3 /*break*/, 5];
+                case 4:
+                    console.log("Apps of type " + activeApp.type + " can't be built.");
+                    _a.label = 5;
+                case 5: return [2 /*return*/];
             }
         });
     });
 }
-exports.default = publishPackage;
+exports.default = publishActiveApp;

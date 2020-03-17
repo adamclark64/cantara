@@ -10,7 +10,7 @@ import startDevelopmentServer from '../scripts/dev';
 import deployActiveApp from '../scripts/deploy';
 import buildActiveApp from '../scripts/build';
 import executeTests from '../scripts/test';
-import publishPackage from '../scripts/publish';
+import publishActiveApp from '../scripts/publish';
 import createNewAppOrPackage from '../scripts/new';
 import initializeNewProject from '../scripts/init';
 import startEndToEndTests from '../scripts/e2e';
@@ -61,7 +61,7 @@ const allCantaraCommands: CantaraCommand[] = [
     actionName: 'publish',
     parameters: [{ name: 'appname', required: true }],
     exec: () => {
-      return publishPackage();
+      return publishActiveApp();
     },
   },
   {

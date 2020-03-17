@@ -39,4 +39,5 @@ interface CreateLocalAppTsConfigOptions {
  * Needed to correctly generate types
  */
 export declare function createLocalAppTsConfig({ indexFileName, app, }: CreateLocalAppTsConfigOptions): void;
+export declare function createDockerFile(app: CantaraApplication): void;
 export {};

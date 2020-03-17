@@ -3,6 +3,7 @@ import {
   createNodeJestConfig,
   createLocalAppTsConfig,
   createOrUpdatePackageJSON,
+  createDockerFile,
 } from './util';
 
 export default async function prepareNodeApp(app: CantaraApplication) {
@@ -11,4 +12,5 @@ export default async function prepareNodeApp(app: CantaraApplication) {
   // Create local tsconfig which extends from global one.
   // Needed to correctly generate types
   createLocalAppTsConfig({ app, indexFileName: 'index.tsx' });
+  createDockerFile(app)
 }

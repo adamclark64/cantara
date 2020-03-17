@@ -86,6 +86,7 @@ export default function getAllApps({
       let typeToUse: CantaraApplicationType = type as CantaraApplicationType;
       let displayName = path.basename(dir);
       let appName = displayName;
+      let version: string;
       let userAddedMetadata:
         | CantaraApplicationMetaInformation
         | undefined = undefined;
@@ -97,6 +98,7 @@ export default function getAllApps({
           readFileSync(packageJsonPath).toString(),
         );
         packageJsonName = packageJSON.name;
+        version = packageJSON.version;
       }
 
       if (packageJsonName) {
@@ -154,6 +156,7 @@ export default function getAllApps({
         },
         meta: {
           displayName,
+          version,
           ...userAddedMetadata,
         },
       };

@@ -364,3 +364,21 @@ export function createLocalAppTsConfig({
   );
   writeJson(appLocalTsConfigPath, JSON.parse(renderedTsConfig));
 }
+
+export function createDockerFile(app: CantaraApplication) {
+  const globalCantaraConfig = getGlobalConfig();
+
+  const dockerfilePath = path.join(app.paths.root, 'Dockerfile');
+  if(existsSync(dockerfilePath)){
+    return;
+  }
+
+  const dockerfileTemplate = readFileSync(
+    path.join(
+      globalCantaraConfig.internalPaths.static,
+      'Dockerfile.template',
+    ),
+  ).toString();
+
+  writeFileSync(dockerfilePath, dockerfileTemplate)
+}

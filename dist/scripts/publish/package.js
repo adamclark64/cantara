@@ -35,23 +35,24 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var util_1 = require("./util");
-function prepareNodeApp(app) {
+var exec_1 = __importDefault(require("../../util/exec"));
+function publishPackage(app) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, util_1.createOrUpdatePackageJSON({ rootDir: app.paths.root })];
+                case 0: return [4 /*yield*/, exec_1.default('np --no-tests', {
+                        redirectIo: true,
+                        workingDirectory: app.paths.root,
+                    })];
                 case 1:
                     _a.sent();
-                    util_1.createNodeJestConfig(app);
-                    // Create local tsconfig which extends from global one.
-                    // Needed to correctly generate types
-                    util_1.createLocalAppTsConfig({ app: app, indexFileName: 'index.tsx' });
-                    util_1.createDockerFile(app);
                     return [2 /*return*/];
             }
         });
     });
 }
-exports.default = prepareNodeApp;
+exports.default = publishPackage;

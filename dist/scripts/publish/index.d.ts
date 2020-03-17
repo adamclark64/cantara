@@ -1,1 +1,1 @@
-export default function publishPackage(): Promise<void>;
+export default function publishActiveApp(): Promise<void>;

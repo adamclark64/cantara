@@ -332,3 +332,13 @@ function createLocalAppTsConfig(_a) {
     fs_2.writeJson(appLocalTsConfigPath, JSON.parse(renderedTsConfig));
 }
 exports.createLocalAppTsConfig = createLocalAppTsConfig;
+function createDockerFile(app) {
+    var globalCantaraConfig = cantara_config_1.default();
+    var dockerfilePath = path_1.default.join(app.paths.root, 'Dockerfile');
+    if (fs_1.existsSync(dockerfilePath)) {
+        return;
+    }
+    var dockerfileTemplate = fs_1.readFileSync(path_1.default.join(globalCantaraConfig.internalPaths.static, 'Dockerfile.template')).toString();
+    fs_1.writeFileSync(dockerfilePath, dockerfileTemplate);
+}
+exports.createDockerFile = createDockerFile;
